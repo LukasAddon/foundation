@@ -2,6 +2,7 @@
 
 namespace Modera\BackendSecurityBundle\DependencyInjection;
 
+use Modera\BackendSecurityBundle\ModeraBackendSecurityBundle;
 use Modera\BackendSecurityBundle\PasswordStrength\Mail\DefaultMailService;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -58,5 +59,13 @@ class ModeraBackendSecurityExtension extends Extension implements PrependExtensi
                 ],
             ]);
         }
+
+        // TODO: remove, BC
+        $container->prependExtensionConfig('security', [
+            'role_hierarchy' => [
+                ModeraBackendSecurityBundle::ROLE_MANAGE_USER_PROFILE_INFORMATION => [ModeraBackendSecurityBundle::ROLE_MANAGE_USER_PREFERENCES],
+                ModeraBackendSecurityBundle::ROLE_ACCESS_BACKEND_TOOLS_SECURITY_SECTION => [ModeraBackendSecurityBundle::ROLE_ACCESS_SECURITY_MANAGER],
+            ],
+        ]);
     }
 }

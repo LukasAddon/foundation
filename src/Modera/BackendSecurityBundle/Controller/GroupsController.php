@@ -77,7 +77,7 @@ class GroupsController extends AbstractCrudController
         return [
             'entity' => Group::class,
             'security' => [
-                'role' => ModeraBackendSecurityBundle::ROLE_ACCESS_BACKEND_TOOLS_SECURITY_SECTION,
+                'role' => ModeraBackendSecurityBundle::ROLE_ACCESS_SECURITY_MANAGER,
                 'actions' => [
                     'create' => ModeraBackendSecurityBundle::ROLE_MANAGE_PERMISSIONS,
                     'update' => ModeraBackendSecurityBundle::ROLE_MANAGE_PERMISSIONS,

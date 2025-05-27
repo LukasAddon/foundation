@@ -15,7 +15,7 @@ Ext.define('Modera.backend.security.toolscontribution.runtime.user.ListActivity'
 
     getSecurityConfig: function() {
         return {
-            role: 'ROLE_ACCESS_BACKEND_TOOLS_SECURITY_SECTION'
+            role: 'ROLE_ACCESS_SECURITY_MANAGER'
         }
     },
 

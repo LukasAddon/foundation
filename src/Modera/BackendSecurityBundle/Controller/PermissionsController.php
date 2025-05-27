@@ -28,7 +28,7 @@ class PermissionsController extends AbstractCrudController
         return [
             'entity' => Permission::class,
             'security' => [
-                'role' => ModeraBackendSecurityBundle::ROLE_ACCESS_BACKEND_TOOLS_SECURITY_SECTION,
+                'role' => ModeraBackendSecurityBundle::ROLE_ACCESS_SECURITY_MANAGER,
                 'actions' => [
                     'create' => false,
                     'remove' => false,

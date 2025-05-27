@@ -54,9 +54,9 @@ class UsersControllerTest extends FunctionalTestCase
         $entityPermission2->setCategory($entityPermissionCategory);
 
         $entityPermission3 = new Permission();
-        $entityPermission3->setRoleName('ROLE_ACCESS_BACKEND_TOOLS_SECURITY_SECTION');
-        $entityPermission3->setDescription('ROLE_ACCESS_BACKEND_TOOLS_SECURITY_SECTION');
-        $entityPermission3->setName('ROLE_ACCESS_BACKEND_TOOLS_SECURITY_SECTION');
+        $entityPermission3->setRoleName('ROLE_ACCESS_SECURITY_MANAGER');
+        $entityPermission3->setDescription('ROLE_ACCESS_SECURITY_MANAGER');
+        $entityPermission3->setName('ROLE_ACCESS_SECURITY_MANAGER');
         $entityPermission3->setCategory($entityPermissionCategory);
 
         $entityPermission4 = new Permission();

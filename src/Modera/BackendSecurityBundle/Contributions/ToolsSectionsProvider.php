@@ -32,7 +32,7 @@ class ToolsSectionsProvider implements ContributorInterface
         if (!$this->items) {
             $this->items = [];
 
-            if ($this->authorizationChecker->isGranted(ModeraBackendSecurityBundle::ROLE_ACCESS_BACKEND_TOOLS_SECURITY_SECTION)) {
+            if ($this->authorizationChecker->isGranted(ModeraBackendSecurityBundle::ROLE_ACCESS_SECURITY_MANAGER)) {
                 $this->items[] = new Section(
                     T::trans('Security permissions'),
                     'tools.security',
