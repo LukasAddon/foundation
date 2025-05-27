@@ -24,7 +24,18 @@ class Permission implements PermissionInterface
          * @see PermissionInterface::getDescription()
          */
         private readonly ?string $description = null,
+        /**
+         * @see PermissionInterface::getLegacyRoleName()
+         *
+         * @var ?string[]
+         */
+        private readonly ?array $legacyRoleNames = null,
     ) {
+    }
+
+    public function getLegacyRoleNames(): ?array
+    {
+        return $this->legacyRoleNames;
     }
 
     public function getRole(): string

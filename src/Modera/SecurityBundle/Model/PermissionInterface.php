@@ -11,6 +11,11 @@ namespace Modera\SecurityBundle\Model;
 interface PermissionInterface
 {
     /**
+     * @return ?string[]
+     */
+    public function getLegacyRoleNames(): ?array;
+
+    /**
      * Returns a Symfony security role that this permission represents. You can use this role with
      * implementations of \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface to check
      * if user has access to perform certain operation.

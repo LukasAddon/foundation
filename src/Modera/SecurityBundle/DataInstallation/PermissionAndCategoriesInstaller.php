@@ -98,6 +98,18 @@ class PermissionAndCategoriesInstaller
                 'roleName' => $permission->getRole(),
             ]);
 
+            if (!$entityPermission && $permission->getLegacyRoleNames()) {
+                foreach ($permission->getLegacyRoleNames() as $legacyRoleName) {
+                    $entityPermission = $this->em->getRepository(Permission::class)->findOneBy([
+                        'roleName' => $legacyRoleName,
+                    ]);
+                    if ($entityPermission) {
+                        $entityPermission->setRoleName($permission->getRole());
+                        break;
+                    }
+                }
+            }
+
             if (!$entityPermission) {
                 $entityPermission = new Permission();
                 $entityPermission->setRoleName($permission->getRole());
