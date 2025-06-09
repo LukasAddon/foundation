@@ -4,8 +4,6 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 use Modera\FileRepositoryBundle\Authoring\AuthoringInterceptor;
 use Modera\FileRepositoryBundle\Contributions\RoutingResourcesProvider;
-use Modera\FileRepositoryBundle\Entity\Repository;
-use Modera\FileRepositoryBundle\Entity\StoredFile;
 use Modera\FileRepositoryBundle\EventListener\ContainerInjectorListener;
 use Modera\FileRepositoryBundle\Filesystem\FilesystemMap;
 use Modera\FileRepositoryBundle\Filesystem\FilesystemMapInterface;
@@ -33,16 +31,6 @@ return static function (ContainerConfigurator $container): void {
 
     $services->set(ContainerInjectorListener::class)
         ->arg('$container', service('service_container'))
-        ->tag('doctrine.orm.entity_listener', [
-            'entity' => Repository::class,
-            'event' => 'postLoad',
-            'lazy' => true,
-        ])
-        ->tag('doctrine.orm.entity_listener', [
-            'entity' => StoredFile::class,
-            'event' => 'postLoad',
-            'lazy' => true,
-        ])
     ;
 
     $services->set(FilesystemMap::class)
