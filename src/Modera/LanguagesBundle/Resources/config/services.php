@@ -2,7 +2,7 @@
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use Modera\LanguagesBundle\EventListener\LanguageSubscriber;
+use Modera\LanguagesBundle\EventListener\LanguageListener;
 
 return static function (ContainerConfigurator $container): void {
     $services = $container->services()
@@ -12,7 +12,5 @@ return static function (ContainerConfigurator $container): void {
             ->autoconfigure()
     ;
 
-    $services->set(LanguageSubscriber::class)
-        ->tag('doctrine.event_subscriber')
-    ;
+    $services->set(LanguageListener::class);
 };
