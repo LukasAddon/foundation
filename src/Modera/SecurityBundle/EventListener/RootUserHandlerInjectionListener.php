@@ -2,6 +2,8 @@
 
 namespace Modera\SecurityBundle\EventListener;
 
+use Doctrine\Bundle\DoctrineBundle\Attribute\AsEntityListener;
+use Doctrine\ORM\Events;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Modera\SecurityBundle\Entity\User;
 use Modera\SecurityBundle\RootUserHandling\RootUserHandlerInterface;
@@ -13,6 +15,7 @@ use Modera\SecurityBundle\RootUserHandling\RootUserHandlerInterface;
  *
  * @copyright 2016 Modera Foundation
  */
+#[AsEntityListener(event: Events::postLoad, lazy: true, entity: User::class)]
 class RootUserHandlerInjectionListener
 {
     /**

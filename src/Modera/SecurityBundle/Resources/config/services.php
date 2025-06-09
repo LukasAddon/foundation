@@ -5,7 +5,6 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 use Modera\SecurityBundle\Contributions\RoutingResourcesProvider;
 use Modera\SecurityBundle\DataInstallation\PermissionAndCategoriesInstaller;
 use Modera\SecurityBundle\DependencyInjection\ModeraSecurityExtension;
-use Modera\SecurityBundle\Entity\User;
 use Modera\SecurityBundle\EventListener\AuthenticationSubscriber;
 use Modera\SecurityBundle\EventListener\RootUserHandlerInjectionListener;
 use Modera\SecurityBundle\EventListener\SwitchUserSubscriber;
@@ -41,13 +40,7 @@ return static function (ContainerConfigurator $container): void {
         ->tag('kernel.event_subscriber')
     ;
 
-    $services->set(RootUserHandlerInjectionListener::class)
-        ->tag('doctrine.orm.entity_listener', [
-            'entity' => User::class,
-            'event' => 'postLoad',
-            'lazy' => true,
-        ])
-    ;
+    $services->set(RootUserHandlerInjectionListener::class);
 
     $services->set(SwitchUserSubscriber::class)
         ->arg('$bundleConfig', param('modera_security.config'))
