@@ -2,7 +2,9 @@
 
 namespace Modera\ConfigBundle\Listener;
 
+use Doctrine\Bundle\DoctrineBundle\Attribute\AsEntityListener;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Events;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Modera\ConfigBundle\Entity\ConfigurationEntry;
 use Modera\ConfigBundle\Notifying\NotificationCenter;
@@ -10,6 +12,9 @@ use Modera\ConfigBundle\Notifying\NotificationCenter;
 /**
  * @copyright 2021 Modera Foundation
  */
+#[AsEntityListener(event: Events::postPersist, lazy: true, entity: ConfigurationEntry::class)]
+#[AsEntityListener(event: Events::postUpdate, lazy: true, entity: ConfigurationEntry::class)]
+#[AsEntityListener(event: Events::postRemove, lazy: true, entity: ConfigurationEntry::class)]
 class ConfigurationEntryEventListener
 {
     public function __construct(
