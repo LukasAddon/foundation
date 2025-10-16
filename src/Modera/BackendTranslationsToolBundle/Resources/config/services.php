@@ -12,6 +12,8 @@ use Modera\BackendTranslationsToolBundle\Contributions\SectionsProvider;
 use Modera\BackendTranslationsToolBundle\Contributions\ToolsSectionsProvider;
 use Modera\BackendTranslationsToolBundle\Extractor\ExtjsExtractor;
 use Modera\BackendTranslationsToolBundle\Handling\ExtjsTranslationHandler;
+use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Translation\Reader\TranslationReaderInterface;
 
 return static function (ContainerConfigurator $container): void {
     $services = $container->services()
@@ -55,6 +57,8 @@ return static function (ContainerConfigurator $container): void {
         ->autowire(false)
         ->autoconfigure(false)
         ->args([
+            service(KernelInterface::class),
+            service(TranslationReaderInterface::class),
             service(ExtjsExtractor::class),
         ])
     ;
