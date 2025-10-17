@@ -198,17 +198,24 @@ class Filters implements \Iterator, \Countable, \ArrayAccess
 
     // ArrayAccess
 
+    /**
+     * @param int $offset
+     */
     public function offsetExists($offset): bool
     {
         return isset($this->filters[$offset]);
     }
 
+    /**
+     * @param int $offset
+     */
     public function offsetGet($offset): Filter|OrFilter
     {
         return $this->filters[$offset];
     }
 
     /**
+     * @param int             $offset
      * @param Filter|OrFilter $value
      */
     public function offsetSet($offset, $value): void
@@ -216,6 +223,9 @@ class Filters implements \Iterator, \Countable, \ArrayAccess
         $this->filters[$offset] = $value;
     }
 
+    /**
+     * @param int $offset
+     */
     public function offsetUnset($offset): void
     {
         unset($this->filters[$offset]);
