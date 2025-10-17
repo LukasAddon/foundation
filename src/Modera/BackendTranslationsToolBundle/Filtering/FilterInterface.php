@@ -23,7 +23,7 @@ interface FilterInterface
      * @param array<mixed> $params
      *
      * @return array{
-     *     'success': boolean,
+     *     'success': bool,
      *     'items': object[],
      *     'total': int,
      * }
