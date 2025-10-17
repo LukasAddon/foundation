@@ -169,7 +169,7 @@ class Call
          *     'type': string,
          *     'tid'?: ?int,
          *     'data'?: array<int, mixed>|mixed
-         * } & array<string, mixed> $call */
+         * }&array<string, mixed> $call */
         $call = $arr;
 
         $this->action = $call['action'];

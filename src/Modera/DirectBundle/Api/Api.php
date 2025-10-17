@@ -97,7 +97,7 @@ class Api
      */
     protected function getControllers(): array
     {
-        $finder = new ControllerFinder();
+        $finder = new ControllerFinder($this->container);
 
         /** @var array<string, string[]> $controllers */
         $controllers = [];

@@ -2,6 +2,7 @@
 
 namespace Modera\DirectBundle\Api;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
@@ -10,6 +11,11 @@ use Symfony\Component\HttpKernel\Bundle\BundleInterface;
  */
 class ControllerFinder
 {
+    public function __construct(
+        protected readonly ContainerInterface $container,
+    ) {
+    }
+
     /**
      * Find all controllers from a bundle.
      *
@@ -34,8 +40,11 @@ class ControllerFinder
                 // we expect classes to follow PSR class-loading standard
                 $controllerName = \substr($file->getPathname(), \strlen($bundle->getPath()) + 1, -1 * \strlen('.php'));
                 $controllerName = \str_replace(\DIRECTORY_SEPARATOR, '\\', $controllerName);
+                $controllerFQCN = $bundle->getNamespace().'\\'.$controllerName;
 
-                $controllers[] = $bundle->getNamespace().'\\'.$controllerName;
+                if ($this->container->has($controllerFQCN)) {
+                    $controllers[] = $controllerFQCN;
+                }
             }
         }
 
