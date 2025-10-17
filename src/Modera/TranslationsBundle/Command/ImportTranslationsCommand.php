@@ -691,6 +691,7 @@ class ImportTranslationsCommand extends Command
             ]);
         }
 
+        /** @var array{'id': int} $tt */
         foreach ($translationTokens as $key => $tt) {
             if (isset($tmp[$tt['id']])) {
                 if (!isset($translationTokens[$key]['languageTranslationTokens'])) {
