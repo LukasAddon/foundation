@@ -9,18 +9,31 @@ use Modera\ConfigBundle\Entity\ConfigurationEntry;
  */
 class AsIsHandler implements HandlerInterface
 {
-    public function getReadableValue(ConfigurationEntry $entry): mixed
+    public function getReadableValue(ConfigurationEntry $entry): string
+    {
+        $value = $entry->getDenormalizedValue();
+
+        if (\is_array($value)) {
+            return \json_encode($value) ?: '';
+        }
+
+        return (string) $value;
+    }
+
+    /**
+     * @return array<mixed>|bool|float|int|string
+     */
+    public function getValue(ConfigurationEntry $entry): array|bool|float|int|string
     {
         return $entry->getDenormalizedValue();
     }
 
-    public function getValue(ConfigurationEntry $entry): mixed
+    public function convertToStorageValue(mixed $value, ConfigurationEntry $entry): array|bool|float|int|string
     {
-        return $entry->getDenormalizedValue();
-    }
+        if (\is_array($value) || \is_bool($value) || \is_float($value) || \is_int($value) || \is_string($value)) {
+            return $value;
+        }
 
-    public function convertToStorageValue(mixed $value, ConfigurationEntry $entry): mixed
-    {
-        return $value;
+        throw new \RuntimeException('Unsupported value type.');
     }
 }

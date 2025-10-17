@@ -26,18 +26,20 @@ interface ConfigurationEntryInterface
      *                     an entity is passed, then implementation of {@class HandlerInterface} is responsible
      *                     to cast it down to something that can be stored in database
      */
-    public function setValue(mixed $value): mixed;
+    public function setValue(mixed $value): int;
 
     /**
-     * @return mixed A value that can be understood by a javascript configuration class that will be used
-     *               to update values for this configuration property
+     * @return array<mixed>|bool|float|int|string A value that can be understood by a javascript configuration class that will be used
+     *                                            to update values for this configuration property
      */
-    public function getDenormalizedValue(): mixed;
+    public function getDenormalizedValue(): array|bool|float|int|string;
 
     /**
+     * @param array<mixed>|bool|float|int|string $value
+     *
      * @return int One of TYPE constants
      */
-    public function setDenormalizedValue(mixed $value): int;
+    public function setDenormalizedValue(array|bool|float|int|string $value): int;
 
     /**
      * @return mixed A human-readable value of currently stored value. For example, this value will

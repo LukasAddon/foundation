@@ -13,7 +13,7 @@ use Modera\ConfigBundle\Entity\ConfigurationEntry;
  */
 class BooleanHandler implements HandlerInterface
 {
-    public function getReadableValue(ConfigurationEntry $entry): mixed
+    public function getReadableValue(ConfigurationEntry $entry): string
     {
         $cfg = $entry->getServerHandlerConfig();
 
@@ -23,12 +23,12 @@ class BooleanHandler implements HandlerInterface
         return 1 == $entry->getDenormalizedValue() ? $trueValue : $falseValue;
     }
 
-    public function getValue(ConfigurationEntry $entry): mixed
+    public function getValue(ConfigurationEntry $entry): bool
     {
-        return $entry->getDenormalizedValue();
+        return 1 == $entry->getDenormalizedValue() ? true : false;
     }
 
-    public function convertToStorageValue(mixed $value, ConfigurationEntry $entry): mixed
+    public function convertToStorageValue(mixed $value, ConfigurationEntry $entry): bool
     {
         return \in_array($value, [1, 'true']);
     }

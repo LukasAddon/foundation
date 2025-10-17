@@ -186,6 +186,6 @@ class ConfigurationEntryTest extends FunctionalTestCase
     {
         $this->expectException(\RuntimeException::class);
         $ce = new ConfigurationEntry('blah');
-        $ce->setDenormalizedValue(new \stdClass());
+        $ce->setValue(new \stdClass());
     }
 }

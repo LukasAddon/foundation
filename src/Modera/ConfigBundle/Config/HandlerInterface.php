@@ -12,7 +12,7 @@ interface HandlerInterface
     /**
      * Value that will be displayed in the frontend (list view).
      */
-    public function getReadableValue(ConfigurationEntry $entry): mixed;
+    public function getReadableValue(ConfigurationEntry $entry): ?string;
 
     /**
      * Oftentimes value stored in {@class ConfigurationEntry} will be some entity
@@ -23,6 +23,8 @@ interface HandlerInterface
     /**
      * Takes a value (it can be an object or whatever) that came from client side(or from some other place) and converts
      * it to something that can be saved in database.
+     *
+     * @return array<mixed>|bool|float|int|string
      */
-    public function convertToStorageValue(mixed $value, ConfigurationEntry $entry): mixed;
+    public function convertToStorageValue(mixed $value, ConfigurationEntry $entry): array|bool|float|int|string;
 }

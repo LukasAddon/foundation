@@ -67,9 +67,9 @@ class BooleanHandlerTest extends \PHPUnit\Framework\TestCase
     {
         $this->entry->expects($this->once())
              ->method('getDenormalizedValue')
-             ->will($this->returnValue('serverValue'));
+             ->will($this->returnValue(1));
 
-        $this->assertEquals('serverValue', $this->handler->getValue($this->entry));
+        $this->assertEquals(true, $this->handler->getValue($this->entry));
     }
 
     public function testConvertToStorageValue(): void

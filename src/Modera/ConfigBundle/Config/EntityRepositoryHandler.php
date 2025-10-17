@@ -39,7 +39,7 @@ class EntityRepositoryHandler implements HandlerInterface
         return $className;
     }
 
-    public function getReadableValue(ConfigurationEntry $entry): mixed
+    public function getReadableValue(ConfigurationEntry $entry): string
     {
         $cfg = $entry->getServerHandlerConfig();
         if (!isset($cfg['toStringMethodName'])) {
@@ -55,12 +55,12 @@ class EntityRepositoryHandler implements HandlerInterface
         return $entity->{$cfg['toStringMethodName']}();
     }
 
-    public function getValue(ConfigurationEntry $entry): mixed
+    public function getValue(ConfigurationEntry $entry): ?object
     {
         return $this->em->getRepository($this->getEntityFqcn($entry))->find($entry->getDenormalizedValue());
     }
 
-    public function convertToStorageValue(mixed $value, ConfigurationEntry $entry): mixed
+    public function convertToStorageValue(mixed $value, ConfigurationEntry $entry): array|bool|float|int|string
     {
         /** @var object $value */
         if (!\is_a($value, $this->getEntityFqcn($entry))) {

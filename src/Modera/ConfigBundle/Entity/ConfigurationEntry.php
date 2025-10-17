@@ -246,7 +246,7 @@ class ConfigurationEntry implements ConfigurationEntryInterface
         return $handler;
     }
 
-    public function setDenormalizedValue(mixed $value): int
+    public function setDenormalizedValue(array|bool|float|int|string $value): int
     {
         $this->{$this->getStorageFieldNameFromValue($value)} = $value;
         $this->savedAs = (string) $this->getFieldType($value);
@@ -254,7 +254,7 @@ class ConfigurationEntry implements ConfigurationEntryInterface
         return (int) $this->savedAs;
     }
 
-    public function getDenormalizedValue(): mixed
+    public function getDenormalizedValue(): array|bool|float|int|string
     {
         if (!isset(self::$fieldsMapping[$this->getSavedAs()])) {
             throw new \RuntimeException(\sprintf('Unable to resolve storage type "%s" for configuration-entry "%s"', $this->getSavedAs(), $this->getName()));
@@ -273,7 +273,7 @@ class ConfigurationEntry implements ConfigurationEntryInterface
         return $result;
     }
 
-    public function setValue(mixed $value): mixed
+    public function setValue(mixed $value): int
     {
         $this->reset();
 
@@ -281,7 +281,11 @@ class ConfigurationEntry implements ConfigurationEntryInterface
             $value = $this->getHandler()->convertToStorageValue($value, $this);
         }
 
-        return $this->setDenormalizedValue($value);
+        if (\is_array($value) || \is_bool($value) || \is_float($value) || \is_int($value) || \is_string($value)) {
+            return $this->setDenormalizedValue($value);
+        }
+
+        throw new \RuntimeException('Unsupported value type.');
     }
 
     public function getValue(): mixed

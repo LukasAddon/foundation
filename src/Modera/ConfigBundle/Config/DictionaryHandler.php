@@ -9,24 +9,34 @@ use Modera\ConfigBundle\Entity\ConfigurationEntry;
  */
 class DictionaryHandler implements HandlerInterface
 {
-    public function getReadableValue(ConfigurationEntry $entry): mixed
+    public function getReadableValue(ConfigurationEntry $entry): ?string
     {
         $cfg = $entry->getServerHandlerConfig();
 
-        if (\is_array($cfg['dictionary'] ?? null) && isset($cfg['dictionary'][$entry->getDenormalizedValue()])) {
-            return $cfg['dictionary'][$entry->getDenormalizedValue()];
+        /** @var bool|int|string $value */
+        $value = $entry->getDenormalizedValue();
+
+        if (\is_array($cfg['dictionary'] ?? null) && \is_string($cfg['dictionary'][$value] ?? null)) {
+            return $cfg['dictionary'][$value];
         }
 
-        return false;
+        return null;
     }
 
-    public function getValue(ConfigurationEntry $entry): mixed
+    public function getValue(ConfigurationEntry $entry): bool|int|string
     {
-        return $entry->getDenormalizedValue();
-    }
+        /** @var bool|int|string $value */
+        $value = $entry->getDenormalizedValue();
 
-    public function convertToStorageValue(mixed $value, ConfigurationEntry $entry): mixed
-    {
         return $value;
+    }
+
+    public function convertToStorageValue(mixed $value, ConfigurationEntry $entry): bool|int|string
+    {
+        if (\is_bool($value) || \is_int($value) || \is_string($value)) {
+            return $value;
+        }
+
+        throw new \RuntimeException('Unsupported value type.');
     }
 }
