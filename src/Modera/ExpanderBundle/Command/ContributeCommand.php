@@ -114,6 +114,7 @@ class ContributeCommand extends AbstractCommand
             /** @var QuestionHelper $questionHelper */
             $questionHelper = $this->getHelper('question');
             $question = new Question('<info>Please specify bundle # you want to contribute to:</info> ');
+            /** @var ?int $bundleIndex */
             $bundleIndex = $questionHelper->ask($input, $output, $question);
             if (null === $bundleIndex) {
                 return Command::SUCCESS;
