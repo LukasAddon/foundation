@@ -106,7 +106,7 @@ class ConfigurationEntriesManager implements ConfigurationEntriesManagerInterfac
             ->select('e')
             ->from(ConfigurationEntry::class, 'e')
             ->andWhere(
-                $qb->expr()->eq('e.isExposed', '?1')
+                $qb->expr()->eq('e.exposed', '?1')
             )
         ;
 

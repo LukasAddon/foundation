@@ -118,14 +118,14 @@ class ConfigurationEntry implements ConfigurationEntryInterface
     /**
      * Only those configuration properties will be shown in UI which have this property set to TRUE.
      */
-    #[ORM\Column(type: 'boolean')]
-    private bool $isExposed = true;
+    #[ORM\Column(name: 'isExposed', type: 'boolean')]
+    private bool $exposed = true;
 
     /**
-     * We won't allow to edit configuration properties whose isReadOnly field is set to FALSE.
+     * We won't allow to edit configuration properties whose readOnly field is set to FALSE.
      */
-    #[ORM\Column(type: 'boolean')]
-    private bool $isReadOnly = false;
+    #[ORM\Column(name: 'isReadOnly', type: 'boolean')]
+    private bool $readOnly = false;
 
     /**
      * Field is mapped dynamically if modera_config/owner_entity is defined.
@@ -163,24 +163,24 @@ class ConfigurationEntry implements ConfigurationEntryInterface
         return $this->container;
     }
 
-    public function setExposed(bool $isExposed): void
+    public function setExposed(bool $exposed): void
     {
-        $this->isExposed = $isExposed;
+        $this->exposed = $exposed;
     }
 
     public function isExposed(): bool
     {
-        return $this->isExposed;
+        return $this->exposed;
     }
 
-    public function setReadOnly(bool $isReadOnly): void
+    public function setReadOnly(bool $readOnly): void
     {
-        $this->isReadOnly = $isReadOnly;
+        $this->readOnly = $readOnly;
     }
 
     public function isReadOnly(): bool
     {
-        return $this->isReadOnly;
+        return $this->readOnly;
     }
 
     public function init(ContainerInterface $container): void
