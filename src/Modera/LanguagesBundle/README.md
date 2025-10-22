@@ -45,7 +45,7 @@ modera_languages:
 ```
 
 Later if you remove a language from `modera_languages` and run `modera:languages:config-sync` command then a database
-record which corresponded to a deleted from a config file language will be marked as `isEnabled = false`.
+record which corresponded to a deleted from a config file language will be marked as `enabled = false`.
 
 ### Step4: Create schema
 

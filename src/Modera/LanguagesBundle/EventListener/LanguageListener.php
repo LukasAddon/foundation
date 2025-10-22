@@ -32,11 +32,11 @@ class LanguageListener
             if ($om instanceof EntityManagerInterface) {
                 $query = $om->createQuery(
                     \sprintf(
-                        'UPDATE %s l SET l.isDefault = :status WHERE l.id != :id',
+                        'UPDATE %s l SET l.default = :isDefault WHERE l.id != :id',
                         Language::class
                     )
                 );
-                $query->setParameter('status', false);
+                $query->setParameter('isDefault', false);
                 $query->setParameter('id', $entity->getId());
                 $query->execute();
             }

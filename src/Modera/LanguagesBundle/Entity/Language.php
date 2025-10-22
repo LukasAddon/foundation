@@ -23,11 +23,11 @@ class Language
     #[ORM\Column(type: 'string')]
     private string $locale = 'en';
 
-    #[ORM\Column(type: 'boolean')]
-    private bool $isEnabled = false;
+    #[ORM\Column(name: 'isEnabled', type: 'boolean')]
+    private bool $enabled = false;
 
-    #[ORM\Column(type: 'boolean')]
-    private bool $isDefault = false;
+    #[ORM\Column(name: 'isDefault', type: 'boolean')]
+    private bool $default = false;
 
     /**
      * Returns the name of a locale.
@@ -95,39 +95,23 @@ class Language
         $this->locale = $locale ?: 'en';
     }
 
-    /**
-     * For ModeraServerCrudBundle.
-     */
-    public function getIsEnabled(): bool
-    {
-        return $this->isEnabled();
-    }
-
     public function isEnabled(): bool
     {
-        return $this->isEnabled;
+        return $this->enabled;
     }
 
     public function setEnabled(bool $status): void
     {
-        $this->isEnabled = $status;
-    }
-
-    /**
-     * For ModeraServerCrudBundle.
-     */
-    public function getIsDefault(): bool
-    {
-        return $this->isDefault();
+        $this->enabled = $status;
     }
 
     public function isDefault(): bool
     {
-        return $this->isDefault;
+        return $this->default;
     }
 
     public function setDefault(bool $status): void
     {
-        $this->isDefault = $status;
+        $this->default = $status;
     }
 }
