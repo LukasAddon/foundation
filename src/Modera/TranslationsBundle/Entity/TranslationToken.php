@@ -30,8 +30,8 @@ class TranslationToken
      * Marks that given token doesn't anymore exist in a source it has been extracted from. For example,
      * initially a token has been imported from a template, but this template has been deleted since then.
      */
-    #[ORM\Column(type: 'boolean')]
-    private bool $isObsolete = false;
+    #[ORM\Column(name: 'isObsolete', type: 'boolean')]
+    private bool $obsolete = false;
 
     /**
      * @var Collection<int, LanguageTranslationToken>
@@ -83,22 +83,14 @@ class TranslationToken
         return $this;
     }
 
-    /**
-     * For ModeraServerCrudBundle.
-     */
-    public function getIsObsolete(): bool
-    {
-        return $this->isObsolete();
-    }
-
     public function isObsolete(): bool
     {
-        return $this->isObsolete;
+        return $this->obsolete;
     }
 
-    public function setObsolete(bool $isObsolete): self
+    public function setObsolete(bool $obsolete): self
     {
-        $this->isObsolete = $isObsolete;
+        $this->obsolete = $obsolete;
 
         return $this;
     }

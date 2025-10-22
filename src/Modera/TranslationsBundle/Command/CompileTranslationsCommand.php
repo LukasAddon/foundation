@@ -94,7 +94,7 @@ class CompileTranslationsCommand extends Command
         $qb = $em->createQueryBuilder();
         $qb->select('l')
             ->from(Language::class, 'l')
-            ->where($qb->expr()->eq('l.isEnabled', ':isEnabled'))
+            ->where($qb->expr()->eq('l.enabled', ':isEnabled'))
             ->setParameter('isEnabled', true);
 
         /** @var array<int, string> $languages */
@@ -109,12 +109,12 @@ class CompileTranslationsCommand extends Command
             ->from(LanguageTranslationToken::class, 'ltt')
             ->leftJoin('ltt.translationToken', 'tt')
             ->where($qb->expr()->in('ltt.language', \array_keys($languages)))
-            ->andWhere($qb->expr()->in('tt.isObsolete', ':isObsolete'))
+            ->andWhere($qb->expr()->in('tt.obsolete', ':isObsolete'))
             ->setParameter('isObsolete', false)
         ;
 
         if ($onlyTranslated) {
-            $qb->andWhere($qb->expr()->in('ltt.isNew', ':isNew'))
+            $qb->andWhere($qb->expr()->in('ltt.new', ':isNew'))
                 ->setParameter('isNew', false);
         }
 

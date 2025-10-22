@@ -102,7 +102,7 @@ class ImportTranslationsCommand extends Command
             $dbMessages = [];
             foreach ($tokens as $domain => $arr) {
                 foreach ($arr as $token) {
-                    if ($token['isObsolete'] ?? null) {
+                    if ($token['obsolete'] ?? null) {
                         continue;
                     }
 
@@ -193,7 +193,7 @@ class ImportTranslationsCommand extends Command
                             if ($token && $language->getId()) {
                                 $ltt = $this->findLanguageTranslationToken($token, $language->getId());
                                 // if not translated yet
-                                if ($ltt && $ltt['isNew']) {
+                                if ($ltt && $ltt['new']) {
                                     $updatedMessages[$tokenName] = $translation;
                                 }
                             }
@@ -258,7 +258,7 @@ class ImportTranslationsCommand extends Command
 
                     foreach ($obsoleteMessages as $tokenName => $translation) {
                         $token = $this->findTranslationToken($tokens, $domain, $tokenName);
-                        if ($token && !$token['isObsolete']) {
+                        if ($token && !$token['obsolete']) {
                             $obsolete[] = $token['id'];
                         }
                     }
@@ -320,7 +320,7 @@ class ImportTranslationsCommand extends Command
                                         'translationToken' => $token['id'],
                                         'translation' => $data['translation'],
                                     ];
-                                } elseif ($ltt['isNew']) {
+                                } elseif ($ltt['new']) {
                                     $updateLanguageTranslationTokens[] = [
                                         'id' => $ltt['id'],
                                         'translation' => $data['translation'],
@@ -360,7 +360,7 @@ class ImportTranslationsCommand extends Command
                         \sprintf(
                             'UPDATE %s ltt SET ltt.translation = :translation %s WHERE ltt.id = :id',
                             LanguageTranslationToken::class,
-                            $markAsTranslated ? ', ltt.isNew = :isNew' : ''
+                            $markAsTranslated ? ', ltt.new = :isNew' : ''
                         )
                     );
                     $query->setParameter('translation', $data['translation']);
@@ -385,7 +385,7 @@ class ImportTranslationsCommand extends Command
                         if ($token) {
                             $updateTranslationTokens[] = [
                                 'id' => $token['id'],
-                                'isObsolete' => false,
+                                'obsolete' => false,
                             ];
                         }
                     }
@@ -394,11 +394,11 @@ class ImportTranslationsCommand extends Command
                 foreach ($updateTranslationTokens as $key => $token) {
                     $query = $this->em()->createQuery(
                         \sprintf(
-                            'UPDATE %s tt SET tt.isObsolete = :isObsolete WHERE tt.id = :id',
+                            'UPDATE %s tt SET tt.obsolete = :isObsolete WHERE tt.id = :id',
                             TranslationToken::class
                         )
                     );
-                    $query->setParameter('isObsolete', $token['isObsolete']);
+                    $query->setParameter('isObsolete', $token['obsolete']);
                     $query->setParameter('id', $token['id']);
                     $query->execute();
                 }
@@ -409,7 +409,7 @@ class ImportTranslationsCommand extends Command
             if (count($obsolete)) {
                 $query = $this->em()->createQuery(
                     \sprintf(
-                        'UPDATE %s tt SET tt.isObsolete = true WHERE tt.id IN(:ids)',
+                        'UPDATE %s tt SET tt.obsolete = true WHERE tt.id IN(:ids)',
                         TranslationToken::class
                     )
                 );
@@ -665,7 +665,7 @@ class ImportTranslationsCommand extends Command
         /** @var array{
          *      0: array{
          *          'id': int,
-         *          'isNew': bool,
+         *          'new': bool,
          *          'translation': string,
          *      },
          *      'language': string,

@@ -26,8 +26,8 @@ class LanguageTranslationToken
     #[ORM\JoinColumn(name: 'translation_token_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ?TranslationToken $translationToken = null;
 
-    #[ORM\Column(type: 'boolean')]
-    private bool $isNew = true;
+    #[ORM\Column(name: 'isNew', type: 'boolean')]
+    private bool $new = true;
 
     #[ORM\Column(type: 'text')]
     private string $translation;
@@ -63,12 +63,12 @@ class LanguageTranslationToken
 
     public function isNew(): bool
     {
-        return $this->isNew;
+        return $this->new;
     }
 
-    public function setNew(bool $isNew): self
+    public function setNew(bool $new): self
     {
-        $this->isNew = $isNew;
+        $this->new = $new;
 
         return $this;
     }
