@@ -15,7 +15,7 @@ interface UserInterface extends EquatableInterface, PasswordAuthenticatedUserInt
 {
     public function getId(): ?int;
 
-    public function setActive(bool $isActive): void;
+    public function setActive(bool $active): void;
 
     /**
      * @return Collection<int, Group>

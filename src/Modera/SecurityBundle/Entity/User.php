@@ -31,7 +31,7 @@ class User implements UserInterface, PreferencesAwareUserInterface
     private ?int $id = null;
 
     #[ORM\Column(name: 'is_active', type: 'boolean')]
-    private bool $isActive;
+    private bool $active;
 
     #[Email]
     #[Assert\NotBlank]
@@ -100,7 +100,7 @@ class User implements UserInterface, PreferencesAwareUserInterface
 
     public function __construct()
     {
-        $this->isActive = true;
+        $this->active = true;
         $this->salt = \md5(\uniqid('', true));
 
         $this->groups = new ArrayCollection();
@@ -200,7 +200,7 @@ class User implements UserInterface, PreferencesAwareUserInterface
             return false;
         }
 
-        if ($this->isActive !== $user->isActive()) {
+        if ($this->active !== $user->isActive()) {
             return false;
         }
 
@@ -214,7 +214,7 @@ class User implements UserInterface, PreferencesAwareUserInterface
             'username' => $this->username,
             'password' => $this->password,
             'salt' => $this->salt,
-            'isActive' => $this->isActive,
+            'active' => $this->active,
         ];
     }
 
@@ -235,12 +235,12 @@ class User implements UserInterface, PreferencesAwareUserInterface
 
     public function isActive(): bool
     {
-        return $this->isActive;
+        return $this->active;
     }
 
-    public function setActive(bool $isActive): void
+    public function setActive(bool $active): void
     {
-        $this->isActive = $isActive;
+        $this->active = $active;
     }
 
     public function getEmail(): ?string
