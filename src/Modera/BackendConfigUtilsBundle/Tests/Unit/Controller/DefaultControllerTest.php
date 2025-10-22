@@ -69,7 +69,7 @@ class DefaultControllerTest extends \PHPUnit\Framework\TestCase
         $result = $hydrator($entry);
 
         $this->assertTrue(\is_array($result));
-        foreach (['id', 'name', 'readableName', 'readableValue', 'value', 'isReadOnly', 'editorConfig'] as $key) {
+        foreach (['id', 'name', 'readableName', 'readableValue', 'value', 'readOnly', 'editorConfig'] as $key) {
             $this->assertArrayHasKey($key, $result);
         }
 
@@ -77,7 +77,7 @@ class DefaultControllerTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('foo_name', $result['name']);
         $this->assertEquals('foo_rn', $result['readableName']);
         $this->assertEquals('foo_rv', $result['readableValue']);
-        $this->assertEquals(true, $result['isReadOnly']);
+        $this->assertEquals(true, $result['readOnly']);
         $this->assertEquals(['foo_ch'], $result['editorConfig']);
     }
 

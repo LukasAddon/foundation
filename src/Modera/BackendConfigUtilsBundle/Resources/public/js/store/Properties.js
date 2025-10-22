@@ -11,7 +11,7 @@ Ext.define('Modera.backend.configutils.store.Properties', {
     constructor: function(config) {
         var defaults = {
             fields: [
-                'id', 'name', 'readableName', 'readableValue', 'value', 'isReadOnly', 'editorConfig'
+                'id', 'name', 'readableName', 'readableValue', 'value', 'readOnly', 'editorConfig'
             ],
             remoteFilter: true,
             proxy: {

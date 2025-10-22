@@ -105,7 +105,7 @@ Ext.define('Modera.backend.configutils.view.PropertiesGrid', {
     // private
     applyFiltering: function(store, config) {
         var filters = [
-            { property: 'isExposed', value: 'eq:true' }
+            { property: 'exposed', value: 'eq:true' }
         ];
 
         if (config && config.category) {
@@ -122,7 +122,7 @@ Ext.define('Modera.backend.configutils.view.PropertiesGrid', {
     editorsFactory: function(record) {
         var me = this;
 
-        if (record.get('isReadOnly')) {
+        if (record.get('readOnly')) {
             return false;
         }
 
