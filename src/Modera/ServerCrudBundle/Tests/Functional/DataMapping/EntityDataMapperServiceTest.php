@@ -84,7 +84,7 @@ class EntityDataMapperServiceTest extends AbstractTestCase
         $user = new DummyUser();
         $userParams = [
             'email' => 'john.doe@example.org',
-            'isActive' => 'off',
+            'active' => 'off',
             'accessLevel' => '5',
             'meta' => [
                 'foo' => 'bar',
@@ -94,7 +94,7 @@ class EntityDataMapperServiceTest extends AbstractTestCase
         $this->mapper->mapEntity($user, $userParams, \array_keys($userParams));
 
         $this->assertEquals($userParams['email'], $user->email);
-        $this->assertFalse($user->isActive);
+        $this->assertFalse($user->active);
         $this->assertEquals(5, $user->accessLevel);
         $this->assertEquals($userParams['meta'], $user->meta);
     }

@@ -27,7 +27,7 @@ class DummyUser implements UserInterface, PreferencesAwareUserInterface
     public ?string $email = null;
 
     #[ORM\Column(type: 'boolean')]
-    public bool $isActive = true;
+    public bool $active = true;
 
     #[ORM\Column(type: 'integer')]
     public int $accessLevel = 0;
@@ -87,9 +87,9 @@ class DummyUser implements UserInterface, PreferencesAwareUserInterface
         }
     }
 
-    public function setActive(bool $isActive): void
+    public function setActive(bool $active): void
     {
-        $this->isActive = $isActive;
+        $this->active = $active;
     }
 
     public function setAccessLevel(int $accessLevel): void
