@@ -77,7 +77,7 @@ class SwitchUserController extends AbstractController
             ->leftJoin($prefix.'u.groups', $prefix.'g')
             ->leftJoin($prefix.'g.permissions', $prefix.'gp')
             ->where(
-                $qb->expr()->eq($prefix.'u.isActive', ':'.$prefix.'isActive')
+                $qb->expr()->eq($prefix.'u.active', ':'.$prefix.'isActive')
             )
             ->andWhere(
                 $qb->expr()->notIn($prefix.'u.id', [$user->getId(), $rootUser->getId()])
