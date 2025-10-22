@@ -42,7 +42,7 @@ Ext.define('Modera.backend.translationstool.toolscontribution.view.List', {
                 flex: 3,
                 renderer: function(values, metaData, record) {
                     if (values[language.get('id')]) {
-                        if (values[language.get('id')]['isNew']) {
+                        if (values[language.get('id')]['new']) {
                             metaData.tdCls += 'new';
                         }
 
@@ -105,7 +105,7 @@ Ext.define('Modera.backend.translationstool.toolscontribution.view.List', {
             viewConfig: {
                 stripeRows: false,
                 getRowClass: function(record, rowIndex, rowParams, store) {
-                    if (record.get('isObsolete')) {
+                    if (record.get('obsolete')) {
                         return 'obsolete';
                     } else {
                         return '';

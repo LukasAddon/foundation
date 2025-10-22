@@ -43,7 +43,7 @@ class ObsoleteTranslationTokensFilter extends AbstractTranslationTokensFilter
     private function getFilter(): array
     {
         return [
-            ['property' => 'isObsolete', 'value' => 'eq:true'],
+            ['property' => 'obsolete', 'value' => 'eq:true'],
         ];
     }
 }

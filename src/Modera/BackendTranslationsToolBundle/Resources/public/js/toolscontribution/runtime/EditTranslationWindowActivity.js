@@ -46,7 +46,7 @@ Ext.define('Modera.backend.translationstool.toolscontribution.runtime.EditTransl
 
         ui.on('saveandclose', function(window) {
             var values = window.down('form').getForm().getValues();
-            values['isNew'] = false;
+            values['new'] = false;
 
             Actions.ModeraBackendTranslationsTool_LanguageTranslations.update({ record: values }, function(response) {
                 if (response.success) {

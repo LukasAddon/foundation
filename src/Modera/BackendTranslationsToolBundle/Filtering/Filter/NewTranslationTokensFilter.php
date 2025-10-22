@@ -43,8 +43,8 @@ class NewTranslationTokensFilter extends AbstractTranslationTokensFilter
     private function getFilter(): array
     {
         return [
-            ['property' => 'isObsolete', 'value' => 'eq:false'],
-            ['property' => 'languageTranslationTokens.isNew', 'value' => 'eq:true'],
+            ['property' => 'obsolete', 'value' => 'eq:false'],
+            ['property' => 'languageTranslationTokens.new', 'value' => 'eq:true'],
         ];
     }
 }

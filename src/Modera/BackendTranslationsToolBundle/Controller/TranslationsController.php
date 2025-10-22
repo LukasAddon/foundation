@@ -54,7 +54,7 @@ class TranslationsController extends AbstractCrudController
     {
         return [
             'id' => $ltt->getId(),
-            'isNew' => $ltt->isNew(),
+            'new' => $ltt->isNew(),
             'translation' => $ltt->getTranslation(),
             'locale' => $ltt->getLanguage()?->getLocale(),
             'language' => $ltt->getLanguage()?->getName(),
@@ -82,7 +82,7 @@ class TranslationsController extends AbstractCrudController
                             'id' => $translationToken->getId(),
                             'domain' => $translationToken->getDomain(),
                             'tokenName' => $translationToken->getTokenName(),
-                            'isObsolete' => $translationToken->isObsolete(),
+                            'obsolete' => $translationToken->isObsolete(),
                             'translations' => $translations,
                         ];
                     },
@@ -127,7 +127,7 @@ class TranslationsController extends AbstractCrudController
 
                 if ($filterValue) {
                     $params['filter'] = [
-                        ['property' => 'languageTranslationTokens.language.isEnabled', 'value' => 'eq:true'],
+                        ['property' => 'languageTranslationTokens.language.enabled', 'value' => 'eq:true'],
                         [
                             ['property' => 'domain', 'value' => 'eq:'.$filterValue],
                             ['property' => 'tokenName', 'value' => 'like:%'.$filterValue.'%'],

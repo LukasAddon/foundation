@@ -7,7 +7,7 @@ Ext.define('Modera.backend.translationstool.toolscontribution.store.Languages', 
     constructor: function() {
         this.config = {
             fields: [
-                'id', 'name', 'locale', 'isEnabled'
+                'id', 'name', 'locale', 'enabled'
             ],
             remoteFilter: true,
             remoteSort: true,
@@ -19,7 +19,7 @@ Ext.define('Modera.backend.translationstool.toolscontribution.store.Languages', 
                         profile: 'list'
                     },
                     filter: [
-                        { property: 'isEnabled', value: 'eq:true' }
+                        { property: 'enabled', value: 'eq:true' }
                     ]
                 },
                 reader: {

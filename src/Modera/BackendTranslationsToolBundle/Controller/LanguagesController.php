@@ -22,7 +22,7 @@ class LanguagesController extends AbstractCrudController
             ],
             'hydration' => [
                 'groups' => [
-                    'list' => ['id', 'name', 'locale', 'isEnabled'],
+                    'list' => ['id', 'name', 'locale', 'enabled'],
                 ],
                 'profiles' => [
                     'list',
