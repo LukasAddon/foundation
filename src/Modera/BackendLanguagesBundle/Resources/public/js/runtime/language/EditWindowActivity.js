@@ -54,8 +54,8 @@ Ext.define('Modera.backend.languages.runtime.language.EditWindowActivity', {
             var form = window.down('form').getForm();
             if (form.isValid()) {
                 var values = form.getValues();
-                if (values['isDefault']) {
-                    values['isEnabled'] = true;
+                if (values['default']) {
+                    values['enabled'] = true;
                 }
                 Actions.ModeraBackendLanguages_Languages.update({ record: values }, function(response) {
                     if (response.success) {

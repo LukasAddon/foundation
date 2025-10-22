@@ -47,8 +47,8 @@ Ext.define('Modera.backend.languages.runtime.language.NewWindowActivity', {
             var form = window.down('form').getForm();
             if (form.isValid()) {
                 var values = form.getValues();
-                if (values['isDefault']) {
-                    values['isEnabled'] = true;
+                if (values['default']) {
+                    values['enabled'] = true;
                 }
                 Actions.ModeraBackendLanguages_Languages.create({ record: values }, function(response) {
                     if (response.success) {

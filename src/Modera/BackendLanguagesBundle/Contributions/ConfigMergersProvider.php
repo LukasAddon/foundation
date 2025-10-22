@@ -41,7 +41,7 @@ class ConfigMergersProvider implements ContributorInterface, ConfigMergerInterfa
             if (!$locale) {
                 /** @var ?Language $defaultLanguage */
                 $defaultLanguage = $this->em->getRepository(Language::class)->findOneBy([
-                    'isDefault' => true,
+                    'default' => true,
                 ]);
                 if ($defaultLanguage) {
                     $locale = $defaultLanguage->getLocale();
@@ -50,7 +50,7 @@ class ConfigMergersProvider implements ContributorInterface, ConfigMergerInterfa
         }
 
         /** @var Language[] $dbLanguages */
-        $dbLanguages = $this->em->getRepository(Language::class)->findBy(['isEnabled' => true]);
+        $dbLanguages = $this->em->getRepository(Language::class)->findBy(['enabled' => true]);
         foreach ($dbLanguages as $dbLanguage) {
             $languages[] = [
                 'id' => $dbLanguage->getId(),

@@ -93,7 +93,7 @@ Ext.define('Modera.backend.languages.view.List', {
                                 // },
                                 {
                                     width: 60,
-                                    dataIndex: 'isDefault',
+                                    dataIndex: 'default',
                                     text: me.defaultHeaderText,
                                     xtype: 'templatecolumn',
                                     tpl: new Ext.XTemplate(
@@ -104,7 +104,7 @@ Ext.define('Modera.backend.languages.view.List', {
                                         ].join(''),
                                         {
                                             glyph: function(values) {
-                                                if (values.isDefault) {
+                                                if (values.default) {
                                                     var glyph = FontAwesome.resolve('asterisk', 'fas');
                                                     var glyphParts = glyph.split('@');
                                                     return '&#' + glyphParts[0] + ';';
@@ -112,7 +112,7 @@ Ext.define('Modera.backend.languages.view.List', {
                                                 return '';
                                             },
                                             glyphStyle: function(values) {
-                                                if (values.isDefault) {
+                                                if (values.default) {
                                                     var glyph = FontAwesome.resolve('asterisk', 'fas');
                                                     var glyphParts = glyph.split('@');
 
@@ -319,7 +319,7 @@ Ext.define('Modera.backend.languages.view.List', {
 
             if (Ext.isEmpty(value)) {
                 return '<span class="mfc-empty-text">' + (msg || '-') + '</span>';
-            } else if (!r.get('isEnabled')) {
+            } else if (!r.get('enabled')) {
                 return '<span class="inactive">' + Ext.util.Format.htmlEncode(value) + '</span>';
             }
 

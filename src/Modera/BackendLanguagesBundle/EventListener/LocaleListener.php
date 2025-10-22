@@ -61,7 +61,7 @@ class LocaleListener implements EventSubscriberInterface
                     if (!$locale) {
                         /** @var ?Language $defaultLanguage */
                         $defaultLanguage = $this->em->getRepository(Language::class)->findOneBy([
-                            'isDefault' => true,
+                            'default' => true,
                         ]);
                         if ($defaultLanguage) {
                             $locale = $defaultLanguage->getLocale();

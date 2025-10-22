@@ -72,7 +72,7 @@ Ext.define('Modera.backend.languages.view.language.NewWindow', {
                         items: [
                             {
                                 flex: 1,
-                                name: 'isEnabled',
+                                name: 'enabled',
                                 xtype: 'checkboxfield',
                                 boxLabel: me.activeLabelText,
                                 tid: 'isActiveCheckbox',
@@ -82,7 +82,7 @@ Ext.define('Modera.backend.languages.view.language.NewWindow', {
                             },
                             {
                                 flex: 1,
-                                name: 'isDefault',
+                                name: 'default',
                                 xtype: 'checkboxfield',
                                 tid: 'isDefaultCheckbox',
                                 boxLabel: me.defaultLabelText,
@@ -107,9 +107,9 @@ Ext.define('Modera.backend.languages.view.language.NewWindow', {
         var me = this;
 
         var form = me.down('form').getForm();
-        var isEnabled = form.findField('isEnabled');
+        var isEnabled = form.findField('enabled');
 
-        form.findField('isDefault').on('change', function(field, newValue) {
+        form.findField('default').on('change', function(field, newValue) {
             if (newValue) {
                 isEnabled.setValue(true);
             }

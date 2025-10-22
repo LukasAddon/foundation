@@ -7,7 +7,7 @@ Ext.define('Modera.backend.languages.store.Languages', {
     constructor: function(config) {
         var defaults = {
             fields: [
-                'id', 'name', 'locale', 'isEnabled', 'isDefault'
+                'id', 'name', 'locale', 'enabled', 'default'
             ],
             proxy: {
                 type: 'direct',
