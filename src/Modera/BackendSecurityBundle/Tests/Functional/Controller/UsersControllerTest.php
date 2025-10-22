@@ -121,7 +121,7 @@ class UsersControllerTest extends FunctionalTestCase
         $this->assertArrayHasKey('firstName', $hydratedUser);
         $this->assertArrayHasKey('lastName', $hydratedUser);
         $this->assertArrayHasKey('middleName', $hydratedUser);
-        $this->assertArrayHasKey('isActive', $hydratedUser);
+        $this->assertArrayHasKey('active', $hydratedUser);
         $this->assertArrayHasKey('state', $hydratedUser);
         $this->assertArrayHasKey('lastLogin', $hydratedUser);
         $this->assertArrayHasKey('groups', $hydratedUser);

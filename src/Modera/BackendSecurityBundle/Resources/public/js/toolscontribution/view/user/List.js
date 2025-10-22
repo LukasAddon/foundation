@@ -93,7 +93,7 @@ Ext.define('Modera.backend.security.toolscontribution.view.user.List', {
                     dataIndex: 'state',
                     renderer: function(v, m, r) {
                         var state = 'Inactive';
-                        if (r.get('isActive')) {
+                        if (r.get('active')) {
                             state = 1 === v ? 'Active' : 'New';
                         }
                         return me['state' + state + 'Text'];
@@ -340,7 +340,7 @@ Ext.define('Modera.backend.security.toolscontribution.view.user.List', {
                                             });
                                         },
                                         selectionAware: function(selected) {
-                                            this.applyVisibility = 1 == selected.length && !selected[0].get('isActive');
+                                            this.applyVisibility = 1 == selected.length && !selected[0].get('active');
                                             this.setVisible(this.isAllowed && this.applyVisibility);
                                         },
                                         itemId: 'enableBtn',
@@ -358,7 +358,7 @@ Ext.define('Modera.backend.security.toolscontribution.view.user.List', {
                                             });
                                         },
                                         selectionAware: function(selected) {
-                                            this.applyVisibility = 1 == selected.length && selected[0].get('isActive');
+                                            this.applyVisibility = 1 == selected.length && selected[0].get('active');
                                             this.setVisible(this.isAllowed && this.applyVisibility);
                                         },
                                         itemId: 'disableBtn',
@@ -587,7 +587,7 @@ Ext.define('Modera.backend.security.toolscontribution.view.user.List', {
                 return '<span class="mfc-empty-text">' + (msg || '-') + '</span>';
             }
             value = valueFormatter(value);
-            if (!r.get('isActive')) {
+            if (!r.get('active')) {
                 return '<span class="modera-backend-security-user-disabled">' + value + '</span>';
             }
             return value;
@@ -706,7 +706,7 @@ Ext.define('Modera.backend.security.toolscontribution.view.user.List', {
 
         var state = me.down('#stateFilter').getValue();
         if (null !== state) {
-            filters.push({ property: 'isActive', value: 'eq:' + (state >= 0 ? 'true' : 'false') });
+            filters.push({ property: 'active', value: 'eq:' + (state >= 0 ? 'true' : 'false') });
             if (state >= 0) {
                 filters.push({ property: 'state', value: 'eq:' + state });
             }

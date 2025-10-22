@@ -11,7 +11,7 @@ Ext.define('Modera.backend.security.toolscontribution.store.Users', {
             fields: [
                 'id', 'username' , 'email', 'meta',
                 'personalId', 'firstName', 'lastName', 'middleName',
-                'isActive', 'state', 'lastLogin', 'groups', 'permissions'
+                'active', 'state', 'lastLogin', 'groups', 'permissions'
             ],
             proxy: {
                 type: 'direct',

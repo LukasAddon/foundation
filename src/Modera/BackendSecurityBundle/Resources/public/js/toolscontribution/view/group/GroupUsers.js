@@ -64,7 +64,7 @@ Ext.define('Modera.backend.security.toolscontribution.view.group.GroupUsers', {
                             dataIndex: 'state',
                             renderer: function(v, m, r) {
                                 var state = 'Inactive';
-                                if (r.get('isActive')) {
+                                if (r.get('active')) {
                                     state = 1 === v ? 'Active' : 'New';
                                 }
                                 return me['state' + state + 'Text'];
@@ -87,7 +87,7 @@ Ext.define('Modera.backend.security.toolscontribution.view.group.GroupUsers', {
         return function(value, m, r) {
             if (Ext.isEmpty(value)) {
                 return '<span class="mfc-empty-text">' + (msg || '-') + '</span>';
-            } else if (!r.get('isActive')) {
+            } else if (!r.get('active')) {
                 return '<span class="modera-backend-security-user-disabled">' + Ext.util.Format.htmlEncode(value) + '</span>';
             }
 
