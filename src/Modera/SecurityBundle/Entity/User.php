@@ -36,15 +36,16 @@ class User implements UserInterface, PreferencesAwareUserInterface
     #[Email]
     #[Assert\NotBlank]
     #[ORM\Column(type: 'string', length: 60, unique: true)]
-    private string $email;
+    private string $email = '';
 
     #[Username]
     #[Assert\NotBlank]
     #[ORM\Column(type: 'string', length: 60, unique: true)]
-    private string $username;
+    private string $username = '';
 
+    #[Assert\NotBlank]
     #[ORM\Column(type: 'string', length: 64)]
-    private string $password;
+    private string $password = '';
 
     #[ORM\Column(type: 'string', length: 32)]
     private string $salt;
@@ -245,7 +246,7 @@ class User implements UserInterface, PreferencesAwareUserInterface
 
     public function getEmail(): ?string
     {
-        return $this->email;
+        return $this->email ?: null;
     }
 
     public function setEmail(string $email): void
@@ -260,7 +261,7 @@ class User implements UserInterface, PreferencesAwareUserInterface
 
     public function getUsername(): ?string
     {
-        return $this->username;
+        return $this->username ?: null;
     }
 
     public function setUsername(string $username): void
@@ -270,7 +271,7 @@ class User implements UserInterface, PreferencesAwareUserInterface
 
     public function getPassword(): ?string
     {
-        return $this->password;
+        return $this->password ?: null;
     }
 
     /**
