@@ -67,8 +67,8 @@ echo ""
 docker run \
     -it \
     --rm \
-    -v `pwd`:/mnt/tmp \
     -w /mnt/tmp \
+    -v `pwd`:/mnt/tmp \
     -e MONOLITH_TEST_SUITE=1 \
     --link mtr_mysql:mysql \
     modera/php:${php_version} "vendor/bin/phpunit ${args}"
