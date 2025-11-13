@@ -23,8 +23,10 @@ class BundleInspector
 
     public function getFile(): string
     {
+        $this->file ??= (\glob($this->getPath().'/*Bundle.php')[0] ?? null);
+
         if (!$this->file) {
-            $this->file = \glob($this->getPath().'/*Bundle.php')[0];
+            throw new \RuntimeException(\sprintf('Bundle file not found in path: %s', $this->getPath()));
         }
 
         return $this->file;
@@ -32,18 +34,14 @@ class BundleInspector
 
     public function getName(): string
     {
-        if (!$this->name) {
-            $this->name = \basename($this->getFile(), '.php');
-        }
-
-        return $this->name;
+        return $this->name ??= \basename($this->getFile(), '.php');
     }
 
     public function getNamespace(): string
     {
         if (!$this->namespace) {
             $contents = \file_get_contents($this->getFile());
-            if (\preg_match('/^namespace\s+([^;]+);/m', $contents, $matches)) {
+            if (\is_string($contents) && \preg_match('/^namespace\s+([^;]+);/m', $contents, $matches)) {
                 $this->namespace = $matches[1];
             } else {
                 throw new \RuntimeException('Cannot determine namespace in '.$this->getFile());
