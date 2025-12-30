@@ -76,6 +76,14 @@ final class ConvertSourceToBase64File
         return null;
     }
 
+    private static function extractFilename(string $source): ?string
+    {
+        $url = \parse_url($source);
+        $filename = isset($url['path']) ? \basename($url['path']) : null;
+
+        return $filename ?: null;
+    }
+
     private static function generateFilename(string $base64): string
     {
         /** @var callable $callback */
@@ -87,30 +95,64 @@ final class ConvertSourceToBase64File
         ])));
     }
 
-    private static function extractFilename(string $source): ?string
+    private static function guessMimeTypeByContent(?string $content): ?string
     {
-        $url = \parse_url($source);
-        $filename = isset($url['path']) ? \basename($url['path']) : null;
+        if (!$content) {
+            return null;
+        }
 
-        return $filename ?: null;
+        $fileInfo = new \finfo(\FILEINFO_MIME_TYPE);
+        $mimeType = @$fileInfo->buffer($content) ?: null;
+
+        return static::normalizeMimeType($mimeType);
+    }
+
+    private static function guessMimeTypeByExtension(?string $ext): ?string
+    {
+        if (!$ext) {
+            return null;
+        }
+
+        $mimeTypes = MimeTypes::getDefault()->getMimeTypes($ext);
+
+        return static::normalizeMimeType($mimeTypes[0] ?? null);
+    }
+
+    private static function getPathExtension(string $path): ?string
+    {
+        $ext = \pathinfo($path, PATHINFO_EXTENSION) ?: null;
+
+        return $ext ? \strtolower($ext) : null;
+    }
+
+    private static function normalizeMimeType(?string $mimeType): ?string
+    {
+        if (!$mimeType) {
+            return null;
+        }
+
+        $mimeType = \strtolower(\trim(\explode(';', $mimeType, 2)[0]));
+
+        if (\in_array($mimeType, [
+            'application/octet-stream',
+            'application/x-empty',
+        ], true)) {
+            return null;
+        }
+
+        return $mimeType;
     }
 
     private static function fileAsBase64(string $source): ?string
     {
-        if (\is_file($source) && $contents = @\file_get_contents($source) ?: null) {
-            $mimeType = null;
-            $ext = \pathinfo($source, \PATHINFO_EXTENSION);
-            if ($ext) {
-                $mimeTypes = MimeTypes::getDefault()->getMimeTypes($ext);
-                if (count($mimeTypes)) {
-                    $mimeType = $mimeTypes[0];
-                }
-            }
-            if (!$mimeType) {
-                $mimeType = MimeTypes::getDefault()->guessMimeType($source);
-            }
+        if (\is_file($source) && $content = @\file_get_contents($source) ?: null) {
+            $mimeType = static::guessMimeTypeByContent($content)
+                ?? static::normalizeMimeType(MimeTypes::getDefault()->guessMimeType($source))
+                ?? static::guessMimeTypeByExtension(static::getPathExtension($source))
+            ;
+
             if ($mimeType) {
-                return \sprintf('data:%s;base64,%s', $mimeType, \base64_encode($contents));
+                return \sprintf('data:%s;base64,%s', $mimeType, \base64_encode($content));
             }
         }
 
@@ -124,31 +166,39 @@ final class ConvertSourceToBase64File
                 'ignore_errors' => true,
             ],
         ]);
-        if ($contents = \file_get_contents($source, false, $context) ?: null) {
-            if (\count($http_response_header)) {
-                \preg_match('{HTTP\/\S*\s(\d{3})}', \array_shift($http_response_header), $matches);
+        if ($content = \file_get_contents($source, false, $context) ?: null) {
+            if (\function_exists('http_get_last_response_headers')) {
+                $rawHeaders = \http_get_last_response_headers();
+            } else {
+                $rawHeaders = $http_response_header;
+            }
+
+            if (\is_array($rawHeaders) && isset($rawHeaders[0]) && \is_string($rawHeaders[0])) {
+                \preg_match('{HTTP\/\S*\s(\d{3})}', \array_shift($rawHeaders), $matches);
                 $status = (int) ($matches[1] ?? 0);
+
                 if (Response::HTTP_OK === $status) {
                     $headers = [];
-                    foreach ($http_response_header as $value) {
+                    foreach ($rawHeaders as $value) {
                         $matches = \explode(':', $value, 2);
                         if (2 === \count($matches)) {
-                            $headers[\trim($matches[0])] = \trim($matches[1]);
+                            $headers[\strtolower(\trim($matches[0]))] = \trim($matches[1]);
                         }
                     }
-                    $mimeType = $headers['Content-Type'] ?? null;
+
+                    $mimeType = static::guessMimeTypeByContent($content)
+                        ?? static::normalizeMimeType($headers['content-type'] ?? null)
+                    ;
+
                     if (!$mimeType) {
                         $url = \parse_url($source);
-                        $ext = isset($url['path']) ? \pathinfo($url['path'], \PATHINFO_EXTENSION) : null;
-                        if ($ext) {
-                            $mimeTypes = MimeTypes::getDefault()->getMimeTypes($ext);
-                            if (count($mimeTypes)) {
-                                $mimeType = $mimeTypes[0];
-                            }
+                        if (isset($url['path'])) {
+                            $mimeType = static::guessMimeTypeByExtension(static::getPathExtension($url['path']));
                         }
                     }
+
                     if ($mimeType) {
-                        return \sprintf('data:%s;base64,%s', $mimeType, \base64_encode($contents));
+                        return \sprintf('data:%s;base64,%s', $mimeType, \base64_encode($content));
                     }
                 }
             }
