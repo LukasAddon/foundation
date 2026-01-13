@@ -24,7 +24,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  *
  * @copyright 2016 Modera Foundation
  */
-class Interceptor extends BaseOperationInterceptor
+class Interceptor extends BaseOperationInterceptor implements ThumbnailsInterceptorInterface
 {
     // TODO: remove, BC
     public const ID = 'modera_file_repository.interceptors.thumbnails_generator.interceptor';
@@ -46,11 +46,6 @@ class Interceptor extends BaseOperationInterceptor
         private readonly FileRepository $fileRepository,
         private readonly ThumbnailsGenerator $thumbnailsGenerator,
     ) {
-    }
-
-    private function isAlternative(\SplFileInfo $file): bool
-    {
-        return \in_array(AlternativeFileTrait::class, \class_uses(\get_class($file)));
     }
 
     /**
