@@ -12,7 +12,7 @@
 set -eu
 
 is_daemon=false
-php_version=8.1
+php_version=8.2
 
 for i in "$@"; do
 case $i in
@@ -65,7 +65,6 @@ echo ""
 
 # MONOLITH_TEST_SUITE env variable is used by FunctionalTestClass
 docker run \
-    -it \
     --rm \
     -w /mnt/tmp \
     -v `pwd`:/mnt/tmp \

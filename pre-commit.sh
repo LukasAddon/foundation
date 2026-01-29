@@ -2,7 +2,7 @@
 
 set -eu
 
-php_version=8.1
+php_version=8.2
 
 if ! type docker > /dev/null; then
     echo "Docker is required to run this command."

@@ -1,3 +1,4 @@
 
 framework:
     secret: Hell yeah!
+    test: true

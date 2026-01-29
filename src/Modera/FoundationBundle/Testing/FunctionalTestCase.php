@@ -4,6 +4,7 @@ namespace Modera\FoundationBundle\Testing;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -33,7 +34,7 @@ class FunctionalTestCase extends WebTestCase
      */
     protected static $em;
 
-    protected static function getContainer(): ContainerInterface
+    protected static function getContainer(): Container
     {
         $container = static::$kernel->getContainer();
         if ($container->has('test.service_container')) {
