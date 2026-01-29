@@ -26,17 +26,17 @@ class AuthenticatorTest extends \PHPUnit\Framework\TestCase
     {
         $authenticator = $this->createAuthenticator();
 
-        $request = \Phake::mock('Symfony\Component\HttpFoundation\Request');
+        $request = new \Symfony\Component\HttpFoundation\Request();
         $session = \Phake::mock('Symfony\Component\HttpFoundation\Session\SessionInterface');
         $exception = \Phake::mock('Symfony\Component\Security\Core\Exception\AuthenticationException');
 
         $request->attributes = new ParameterBag([]);
-        \Phake::when($request)->getSession()->thenReturn($session);
+        $request->setSession($session);
 
         $resp = $authenticator->onAuthenticationFailure($request, $exception);
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $resp);
 
-        \Phake::when($request)->isXmlHttpRequest()->thenReturn(true);
+        $request->headers->set('X-Requested-With', 'XMLHttpRequest');
 
         $resp = $authenticator->onAuthenticationFailure($request, $exception);
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\JsonResponse', $resp);
@@ -46,16 +46,16 @@ class AuthenticatorTest extends \PHPUnit\Framework\TestCase
     {
         $authenticator = $this->createAuthenticator();
 
-        $request = \Phake::mock('Symfony\Component\HttpFoundation\Request');
+        $request = new \Symfony\Component\HttpFoundation\Request();
         $session = \Phake::mock('Symfony\Component\HttpFoundation\Session\SessionInterface');
         $token = \Phake::mock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
 
-        \Phake::when($request)->getSession()->thenReturn($session);
+        $request->setSession($session);
 
         $resp = $authenticator->onAuthenticationSuccess($request, $token);
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $resp);
 
-        \Phake::when($request)->isXmlHttpRequest()->thenReturn(true);
+        $request->headers->set('X-Requested-With', 'XMLHttpRequest');
 
         $resp = $authenticator->onAuthenticationSuccess($request, $token);
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\JsonResponse', $resp);
