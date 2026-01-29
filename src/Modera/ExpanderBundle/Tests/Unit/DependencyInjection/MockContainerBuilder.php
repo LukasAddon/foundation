@@ -6,7 +6,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class MockContainerBuilder extends ContainerBuilder
 {
-    public $services = [];
+    public array $services = [];
 
     public array $definitions = [];
 

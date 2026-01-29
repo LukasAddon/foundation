@@ -32,7 +32,7 @@ class Translator extends BaseTranslator implements WarmableInterface
         $this->catalogues[$locale] = $catalogue;
     }
 
-    public function warmUp(string $cacheDir): array
+    public function warmUp(string $cacheDir, ?string $buildDir = null): array
     {
         $arr = $this->translator->warmUp($cacheDir);
         $this->catalogues = [];

@@ -24,7 +24,7 @@ class DummyContainerBuilder extends ContainerBuilder
         return $this->definitions[$id] = $definition;
     }
 
-    public function getParameter(string $name)
+    public function getParameter(string $name): \UnitEnum|float|int|bool|array|string|null
     {
         if ('kernel.bundles' === $name) {
             return $this->bundles;
