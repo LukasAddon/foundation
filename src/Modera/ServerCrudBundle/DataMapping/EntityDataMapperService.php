@@ -62,7 +62,7 @@ class EntityDataMapperService
             throw new \RuntimeException('No authenticated user available in your session.');
         }
 
-        if (!($user instanceof PreferencesAwareUserInterface)) {
+        if (!$user instanceof PreferencesAwareUserInterface) {
             throw new \RuntimeException('Currently authenticated user must implement PreferencesAwareUserInterface!');
         }
 

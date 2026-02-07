@@ -239,7 +239,7 @@ class ConfigurationEntry implements ConfigurationEntryInterface
         $handlerServiceId = $this->serverHandlerConfig['handler'];
 
         $handler = $this->getContainer()->get($handlerServiceId);
-        if (!($handler instanceof HandlerInterface)) {
+        if (!$handler instanceof HandlerInterface) {
             throw new \RuntimeException(\sprintf("Handler '%s' doesn't implement HandlerInterface! ( configuration-entry: %s )", $handlerServiceId, $this->getName()));
         }
 
@@ -292,18 +292,18 @@ class ConfigurationEntry implements ConfigurationEntryInterface
     {
         if ($this->hasServerHandler()) {
             return $this->getHandler()->getValue($this);
-        } else {
-            return $this->getDenormalizedValue();
         }
+
+        return $this->getDenormalizedValue();
     }
 
     public function getReadableValue(): mixed
     {
         if ($this->hasServerHandler()) {
             return $this->getHandler()->getReadableValue($this);
-        } else {
-            return $this->getDenormalizedValue();
         }
+
+        return $this->getDenormalizedValue();
     }
 
     /**
@@ -326,9 +326,9 @@ class ConfigurationEntry implements ConfigurationEntryInterface
         if (\is_string($value)) {
             if (\mb_strlen($value) <= 254) {
                 return self::TYPE_STRING;
-            } else {
-                return self::TYPE_TEXT;
             }
+
+            return self::TYPE_TEXT;
         } elseif (\is_float($value)) {
             return self::TYPE_FLOAT;
         } elseif (\is_int($value)) {

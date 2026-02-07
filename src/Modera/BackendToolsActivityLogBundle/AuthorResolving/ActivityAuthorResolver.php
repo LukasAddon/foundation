@@ -34,17 +34,17 @@ class ActivityAuthorResolver
                     'fullName' => $user->getFullName(),
                     'username' => $user->getUsername(),
                 ];
-            } else {
-                return [
-                    'isUser' => false,
-                    'identity' => $activity->getAuthor(),
-                ];
             }
-        } else {
+
             return [
                 'isUser' => false,
-                'identity' => $activity->getAuthor() ? $activity->getAuthor() : T::trans('Unknown'),
+                'identity' => $activity->getAuthor(),
             ];
         }
+
+        return [
+            'isUser' => false,
+            'identity' => $activity->getAuthor() ? $activity->getAuthor() : T::trans('Unknown'),
+        ];
     }
 }

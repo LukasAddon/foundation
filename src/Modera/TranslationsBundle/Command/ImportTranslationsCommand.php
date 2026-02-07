@@ -175,13 +175,11 @@ class ImportTranslationsCommand extends Command
                                 }
                             }
                             continue;
-                        } else {
-                            if (\in_array($domain.MessageCatalogue::INTL_DOMAIN_SUFFIX, $operation->getDomains(), true)) {
-                                if (isset($dbMessages[$domain]) && !\array_key_exists($tokenName, $dbMessages[$domain])) {
-                                    $intlObsoleteMessages = $operation->getObsoleteMessages($domain.MessageCatalogue::INTL_DOMAIN_SUFFIX);
-                                    if (\array_key_exists($tokenName, $intlObsoleteMessages)) {
-                                        $newMessages[$tokenName] = $translation;
-                                    }
+                        } elseif (\in_array($domain.MessageCatalogue::INTL_DOMAIN_SUFFIX, $operation->getDomains(), true)) {
+                            if (isset($dbMessages[$domain]) && !\array_key_exists($tokenName, $dbMessages[$domain])) {
+                                $intlObsoleteMessages = $operation->getObsoleteMessages($domain.MessageCatalogue::INTL_DOMAIN_SUFFIX);
+                                if (\array_key_exists($tokenName, $intlObsoleteMessages)) {
+                                    $newMessages[$tokenName] = $translation;
                                 }
                             }
                         }

@@ -159,10 +159,10 @@ class FileRepository
         $key = \strtolower($type).'_interceptor_filter';
         if (isset($context[$key]) && \is_callable($context[$key])) {
             return $context[$key];
-        } else {
-            return function () {
-                return true;
-            };
         }
+
+        return function () {
+            return true;
+        };
     }
 }

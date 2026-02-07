@@ -571,12 +571,12 @@ abstract class AbstractCrudController extends AbstractController implements Crud
                     return \array_merge($operationResult->toArray($this->getModelManager()), [
                         'success' => true,
                     ]);
-                } else {
-                    return [
-                        'success' => false,
-                        'errors' => $errors,
-                    ];
                 }
+
+                return [
+                    'success' => false,
+                    'errors' => $errors,
+                ];
             } elseif (isset($params['records']) && \is_array($params['records'])) {
                 $entities = [];
                 $errors = [];
@@ -634,21 +634,21 @@ abstract class AbstractCrudController extends AbstractController implements Crud
                     return \array_merge($operationResult->toArray($this->getModelManager()), [
                         'success' => true,
                     ]);
-                } else {
-                    return [
-                        'success' => false,
-                        'errors' => $errors,
-                    ];
                 }
-            } else {
-                $e = new BadRequestException(
-                    "Invalid request structure. Valid request would either contain 'queries' and 'record' or 'records' keys."
-                );
-                $e->setParams($params);
-                $e->setPath('/');
 
-                throw $e;
+                return [
+                    'success' => false,
+                    'errors' => $errors,
+                ];
             }
+
+            $e = new BadRequestException(
+                "Invalid request structure. Valid request would either contain 'queries' and 'record' or 'records' keys."
+            );
+            $e->setParams($params);
+            $e->setPath('/');
+
+            throw $e;
         } catch (\Exception $e) {
             return $this->createExceptionResponse($e, ExceptionHandlerInterface::OPERATION_UPDATE);
         }

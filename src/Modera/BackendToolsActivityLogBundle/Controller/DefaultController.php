@@ -90,12 +90,12 @@ class DefaultController extends AbstractController
                 'result' => $this->hydrationService->hydrate($result['items'][0], $this->getConfig(), 'details'),
                 'success' => true,
             ];
-        } else {
-            return [
-                'success' => false,
-                'message' => 'Unable to find activity by given query',
-            ];
         }
+
+        return [
+            'success' => false,
+            'message' => 'Unable to find activity by given query',
+        ];
     }
 
     /**

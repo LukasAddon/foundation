@@ -48,13 +48,13 @@ class KernelConfig implements KernelConfigInterface
 
         if (false === $mode) {
             return $defaultMode;
-        } else {
-            $mode = \json_decode($mode, true);
-            if (\is_array($mode) && \is_string($mode['env'] ?? null) && \is_bool($mode['debug'] ?? null)) {
-                return $mode;
-            } else {
-                return $defaultMode;
-            }
         }
+
+        $mode = \json_decode($mode, true);
+        if (\is_array($mode) && \is_string($mode['env'] ?? null) && \is_bool($mode['debug'] ?? null)) {
+            return $mode;
+        }
+
+        return $defaultMode;
     }
 }

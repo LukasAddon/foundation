@@ -27,16 +27,14 @@ class ConfigMergersProvider implements ContributorInterface, ConfigMergerInterfa
 
     public function merge(array $existingConfig): array
     {
-        $existingConfig = \array_merge($existingConfig, [
-            'modera_backend_security' => [
-                'hideDeleteUserFunctionality' => (bool) $this->semanticConfig['hide_delete_user_functionality'],
-                'sections' => [],
-            ],
-        ]);
+        $config = [
+            'hideDeleteUserFunctionality' => (bool) $this->semanticConfig['hide_delete_user_functionality'],
+            'sections' => [],
+        ];
 
         foreach ($this->extensionProvider->get('modera_backend_security.sections')->getItems() as $section) {
             if ($section instanceof SectionInterface) {
-                $existingConfig['modera_backend_security']['sections'][] = [
+                $config['sections'][] = [
                     'sectionConfig' => [
                         'name' => $section->getId(),
                         'uiClass' => $section->getUiClass(),
@@ -50,7 +48,9 @@ class ConfigMergersProvider implements ContributorInterface, ConfigMergerInterfa
             }
         }
 
-        return $existingConfig;
+        return \array_merge($existingConfig, [
+            'modera_backend_security' => $config,
+        ]);
     }
 
     public function getItems(): array

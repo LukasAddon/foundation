@@ -31,7 +31,7 @@ class InterceptorsManager
 
         foreach ($this->interceptorsProvider->getItems() as $interceptor) {
             /** @var object $interceptor */
-            if (!($interceptor instanceof ControllerActionsInterceptorInterface)) {
+            if (!$interceptor instanceof ControllerActionsInterceptorInterface) {
                 throw InvalidInterceptorException::create($interceptor);
             }
             $interceptor->{'on'.\ucfirst($actionName)}($params, $controller);

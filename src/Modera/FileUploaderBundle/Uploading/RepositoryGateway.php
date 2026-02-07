@@ -49,9 +49,9 @@ class RepositoryGateway implements UploadGatewayInterface
             return new JsonResponse([
                 'success' => true,
             ]);
-        } else {
-            return new Response(Response::$statusTexts[Response::HTTP_OK]);
         }
+
+        return new Response(Response::$statusTexts[Response::HTTP_OK]);
     }
 
     /**

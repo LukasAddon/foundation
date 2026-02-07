@@ -81,15 +81,15 @@ class UsersController extends AbstractCrudController
                             )
                         ) {
                             return true;
-                        } else {
-                            // irrespectively of what privileges user has we will always allow him to edit his
-                            // own profile data
-                            return
-                                isset($params['record']['id'])
-                                && ($user = $this->getUser()) instanceof User
-                                && $user->getId() == $params['record']['id']
-                            ;
                         }
+
+                        // irrespectively of what privileges user has we will always allow him to edit his
+                        // own profile data
+                        return
+                            isset($params['record']['id'])
+                            && ($user = $this->getUser()) instanceof User
+                            && $user->getId() == $params['record']['id']
+                        ;
                     },
                     'batchUpdate' => function (AuthorizationCheckerInterface $ac, array $params) use ($checkRecord) {
                         if (\is_array($params['record'] ?? null)) {

@@ -55,10 +55,10 @@ class TwigExtension extends AbstractExtension
 
         if ($strict) {
             return $mgr->findOneByNameOrDie($propertyName, $owner)->getValue();
-        } else {
-            $property = $mgr->findOneByName($propertyName, $owner);
-
-            return $property?->getValue();
         }
+
+        $property = $mgr->findOneByName($propertyName, $owner);
+
+        return $property?->getValue();
     }
 }

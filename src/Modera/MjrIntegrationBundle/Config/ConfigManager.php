@@ -25,7 +25,7 @@ class ConfigManager
     {
         $result = [];
         foreach ($this->extensionProvider->get('modera_mjr_integration.config.config_mergers')->getItems() as $merger) {
-            if (!($merger instanceof ConfigMergerInterface)) {
+            if (!$merger instanceof ConfigMergerInterface) {
                 throw new \RuntimeException();
             }
 

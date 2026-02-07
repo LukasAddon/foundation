@@ -47,8 +47,8 @@ class DqlCompiler
     {
         if (':' == $arg[0]) { // a field is being referenced
             return $this->exprMgr->getDqlPropertyName(\substr($arg, 1));
-        } else {
-            return '?'.($binder->bind($arg) - 1);
         }
+
+        return '?'.($binder->bind($arg) - 1);
     }
 }

@@ -103,27 +103,27 @@ class HydrationService
             }
 
             return $result;
-        } else {
-            $groupsToUse = \array_values($groups);
-
-            // if there's only one group given then no grouping is going to be used
-            if (1 === \count($groupsToUse)) {
-                $hydrator = $configAnalyzer->getGroupDefinition($groupsToUse[0]);
-
-                return $this->invokeHydrator($hydrator, $objectOrArray);
-            } else {
-                $result = [];
-
-                foreach ($groupsToUse as $groupName) {
-                    $hydrator = $configAnalyzer->getGroupDefinition($groupName);
-
-                    $hydratorResult = $this->invokeHydrator($hydrator, $objectOrArray);
-
-                    $result = $this->mergeHydrationResult($result, $hydratorResult, $profile, $groupName);
-                }
-
-                return $result;
-            }
         }
+
+        $groupsToUse = \array_values($groups);
+
+        // if there's only one group given then no grouping is going to be used
+        if (1 === \count($groupsToUse)) {
+            $hydrator = $configAnalyzer->getGroupDefinition($groupsToUse[0]);
+
+            return $this->invokeHydrator($hydrator, $objectOrArray);
+        }
+
+        $result = [];
+
+        foreach ($groupsToUse as $groupName) {
+            $hydrator = $configAnalyzer->getGroupDefinition($groupName);
+
+            $hydratorResult = $this->invokeHydrator($hydrator, $objectOrArray);
+
+            $result = $this->mergeHydrationResult($result, $hydratorResult, $profile, $groupName);
+        }
+
+        return $result;
     }
 }

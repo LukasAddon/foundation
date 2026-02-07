@@ -185,7 +185,7 @@ class User implements UserInterface, PreferencesAwareUserInterface
 
     public function isEqualTo(SymfonyUserInterface $user): bool
     {
-        if (!($user instanceof static)) {
+        if (!$user instanceof static) {
             return false;
         }
 

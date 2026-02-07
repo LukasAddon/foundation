@@ -35,8 +35,8 @@ class Response
     {
         if ('form' === $this->type && $this->isUpload) {
             return '<html><body><textarea>'.\json_encode($result[0] ?? null).'</textarea></body></html>';
-        } else {
-            return \json_encode($result) ?: '{}';
         }
+
+        return \json_encode($result) ?: '{}';
     }
 }

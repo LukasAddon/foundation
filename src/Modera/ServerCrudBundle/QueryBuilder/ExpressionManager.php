@@ -165,9 +165,9 @@ class ExpressionManager
             $propertyName = \array_pop($parsedExpression);
 
             return $this->allocateAlias(\implode('.', $parsedExpression)).'.'.$propertyName;
-        } else {
-            return $this->getRootAlias().'.'.$expression;
         }
+
+        return $this->getRootAlias().'.'.$expression;
     }
 
     /**

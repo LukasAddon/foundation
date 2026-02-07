@@ -72,9 +72,9 @@ class ConfigMergersProvider implements ContributorInterface
                         'switchUserUrl' => $switchUserUrl,
                         'switchUserListAction' => $switchUserListAction,
                     ]);
-                } else {
-                    return $currentConfig;
                 }
+
+                return $currentConfig;
             }),
             new CallbackConfigMerger(function (array $currentConfig) use ($self) {
                 return \array_merge($currentConfig, [

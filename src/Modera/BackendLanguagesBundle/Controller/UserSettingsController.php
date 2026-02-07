@@ -29,15 +29,15 @@ class UserSettingsController extends AbstractCrudController
                             || $ac->isGranted(ModeraBackendSecurityBundle::ROLE_MANAGE_USER_PREFERENCES)
                         ) {
                             return true;
-                        } else {
-                            // irrespectively of what privileges user has we will always allow him to create his
-                            // own profile data
-                            return
-                                isset($params['record']['user'])
-                                && ($user = $this->getUser()) instanceof User
-                                && $user->getId() === $params['record']['user']
-                            ;
                         }
+
+                        // irrespectively of what privileges user has we will always allow him to create his
+                        // own profile data
+                        return
+                            isset($params['record']['user'])
+                            && ($user = $this->getUser()) instanceof User
+                            && $user->getId() === $params['record']['user']
+                        ;
                     },
                     'update' => function (AuthorizationCheckerInterface $ac, array $params) {
                         if (

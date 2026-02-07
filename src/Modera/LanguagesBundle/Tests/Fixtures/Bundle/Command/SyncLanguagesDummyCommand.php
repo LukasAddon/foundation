@@ -37,8 +37,8 @@ class SyncLanguagesDummyCommand extends SyncLanguagesCommand
             }
 
             return $config;
-        } else {
-            return [];
         }
+
+        return [];
     }
 }

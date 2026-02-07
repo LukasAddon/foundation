@@ -18,20 +18,22 @@ class JavaBeansObjectFieldsManager implements ObjectFieldsManagerInterface
 
     public function formatGetterName(string $key): string
     {
-        if (\preg_match($this->isRegex, $key)) { // isBlah, isFoo, is111
+        // isBlah, isFoo, is111
+        if (\preg_match($this->isRegex, $key)) {
             return $key;
-        } else { // foo, bar, isotope
-            return 'get'.\ucfirst($key);
         }
+
+        // foo, bar, isotope
+        return 'get'.\ucfirst($key);
     }
 
     public function formatSetterName(string $key): string
     {
         if (\preg_match($this->isRegex, $key, $matches)) {
             return 'set'.$matches[1];
-        } else {
-            return 'set'.\ucfirst($key);
         }
+
+        return 'set'.\ucfirst($key);
     }
 
     private function getReflectionClass(object $object): \ReflectionClass

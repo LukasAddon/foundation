@@ -151,9 +151,9 @@ class Call
                 'message' => $exception->getMessage(),
                 'where' => $exception->getTraceAsString(),
             ]);
-        } else {
-            return $response;
         }
+
+        return $response;
     }
 
     /**

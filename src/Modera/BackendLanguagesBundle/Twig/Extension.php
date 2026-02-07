@@ -442,9 +442,9 @@ class Extension extends AbstractExtension
         if (\array_key_exists($code, self::REGION_LANGUAGES)) {
             if (false !== \strpos(self::REGION_LANGUAGES[$code], ',')) {
                 return \explode(',', self::REGION_LANGUAGES[$code]);
-            } else {
-                return [self::REGION_LANGUAGES[$code]];
             }
+
+            return [self::REGION_LANGUAGES[$code]];
         }
 
         return [];

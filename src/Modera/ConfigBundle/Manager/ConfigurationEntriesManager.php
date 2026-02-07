@@ -69,7 +69,7 @@ class ConfigurationEntriesManager implements ConfigurationEntriesManagerInterfac
 
     public function save(ConfigurationEntryInterface $entry): void
     {
-        if (!($entry instanceof ConfigurationEntry)) {
+        if (!$entry instanceof ConfigurationEntry) {
             throw new \InvalidArgumentException('$entry must be an instance of '.ConfigurationEntry::class);
         }
 

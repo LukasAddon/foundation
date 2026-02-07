@@ -24,7 +24,7 @@ class Loader implements LoaderInterface
     ) {
     }
 
-    public function load(mixed $resource, ?string $type = null)
+    public function load(mixed $resource, ?string $type = null): mixed
     {
         if (true === $this->isLoaded) {
             throw new \RuntimeException('Do not add the "modera_routing" loader twice');

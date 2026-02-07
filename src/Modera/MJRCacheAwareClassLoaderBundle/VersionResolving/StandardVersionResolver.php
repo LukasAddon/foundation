@@ -46,8 +46,8 @@ class StandardVersionResolver implements VersionResolverInterface
             return $configuredVersion;
         } elseif (false !== $fileVersion) {
             return $fileVersion;
-        } else {
-            return '1.0.0';
         }
+
+        return '1.0.0';
     }
 }
