@@ -37,9 +37,32 @@ class ThumbnailsGenerator
         }
 
         $imagine = new Imagine();
-        $imagine->open($image->getPathname())->thumbnail($size, $mode)->save($pathname);
+        $img = $imagine->open($image->getPathname());
+
+        if (\function_exists('exif_read_data')) {
+            $exif = @\exif_read_data($image->getPathname());
+            if (\is_array($exif) && \is_int($exif['Orientation'] ?? null)) {
+                $img = self::applyExifOrientation($img, $exif['Orientation']);
+            }
+        }
+
+        $img->thumbnail($size, $mode)->save($pathname);
 
         return $pathname;
+    }
+
+    private static function applyExifOrientation(ImageInterface $image, int $orientation): ImageInterface
+    {
+        return match ($orientation) {
+            2 => $image->flipHorizontally(),
+            3 => $image->rotate(180),
+            4 => $image->flipVertically(),
+            5 => $image->rotate(90)->flipHorizontally(),
+            6 => $image->rotate(90),
+            7 => $image->rotate(-90)->flipHorizontally(),
+            8 => $image->rotate(-90),
+            default => $image,
+        };
     }
 
     /**
