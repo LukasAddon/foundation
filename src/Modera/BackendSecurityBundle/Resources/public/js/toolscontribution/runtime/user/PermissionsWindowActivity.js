@@ -99,6 +99,9 @@ Ext.define('Modera.backend.security.toolscontribution.runtime.user.PermissionsWi
                     }
 
                     callback(Ext.widget({
+                        dto: {
+                            user: user
+                        },
                         extensionPoint: 'permissionsWindow',
                         tid: 'regularAndApiPermissionsWindow',
                         xtype: 'mfc-modalwindow',
