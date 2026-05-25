@@ -90,6 +90,7 @@ class StoredFile
      * @see addAlternative()
      */
     #[ORM\ManyToOne(targetEntity: StoredFile::class, inversedBy: 'alternatives', cascade: ['PERSIST'])]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private ?StoredFile $alternativeOf = null;
 
     /**
