@@ -107,6 +107,11 @@ class DummyUser implements UserInterface, PreferencesAwareUserInterface
         $this->meta = $meta;
     }
 
+    public function setCreditCard(?DummyCreditCard $creditCard): void
+    {
+        $this->creditCard = $creditCard;
+    }
+
     public function getPreferences(): array
     {
         return [

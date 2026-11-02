@@ -220,13 +220,13 @@ class EntityDataMapperService
             if (!\in_array($fieldName, $allowedFields)) {
                 continue;
             }
-            if (null !== ($params[$fieldName] ?? null)) {
+            if (\array_key_exists($fieldName, $params)) {
                 if (\in_array($mapping['type'], [ClassMetadataInfo::ONE_TO_ONE, ClassMetadataInfo::MANY_TO_ONE])) {
                     $rawValue = $params[$fieldName];
 
                     $methodParams = $this->paramsProvider->getParameters(\get_class($entity), $this->fm->formatSetterName($fieldName));
 
-                    if ('-' === $rawValue) {
+                    if (null === $rawValue || '-' === $rawValue) {
                         $this->fm->set($entity, $fieldName, \array_merge([null], $methodParams));
                     } else {
                         $value = $em->getRepository($mapping['targetEntity'])->find($rawValue);

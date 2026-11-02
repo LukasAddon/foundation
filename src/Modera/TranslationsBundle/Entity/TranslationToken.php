@@ -20,10 +20,10 @@ class TranslationToken
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, options: ['charset' => 'utf8', 'collation' => 'utf8_unicode_ci'])]
     private string $domain;
 
-    #[ORM\Column(type: 'text', options: ['collation' => 'utf8_bin'])]
+    #[ORM\Column(type: 'text', options: ['charset' => 'utf8', 'collation' => 'utf8_bin'])]
     private string $tokenName;
 
     /**

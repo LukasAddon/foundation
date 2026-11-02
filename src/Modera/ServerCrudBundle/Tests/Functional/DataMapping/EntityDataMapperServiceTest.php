@@ -5,6 +5,7 @@ namespace Modera\ServerCrudBundle\Tests\Functional\DataMapping;
 use Modera\ServerCrudBundle\DataMapping\EntityDataMapperService;
 use Modera\ServerCrudBundle\QueryBuilder\ArrayQueryBuilder;
 use Modera\ServerCrudBundle\Tests\Functional\AbstractTestCase;
+use Modera\ServerCrudBundle\Tests\Functional\DummyCreditCard;
 use Modera\ServerCrudBundle\Tests\Functional\DummyUser;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -97,5 +98,36 @@ class EntityDataMapperServiceTest extends AbstractTestCase
         $this->assertFalse($user->active);
         $this->assertEquals(5, $user->accessLevel);
         $this->assertEquals($userParams['meta'], $user->meta);
+    }
+
+    public function testNullExplicitlyClearsManyToOneRelation(): void
+    {
+        $user = new DummyUser();
+        $user->creditCard = new DummyCreditCard();
+
+        $this->mapper->mapEntity($user, ['creditCard' => null], ['creditCard']);
+
+        $this->assertNull($user->creditCard);
+    }
+
+    public function testDashSentinelStillClearsManyToOneRelation(): void
+    {
+        $user = new DummyUser();
+        $user->creditCard = new DummyCreditCard();
+
+        $this->mapper->mapEntity($user, ['creditCard' => '-'], ['creditCard']);
+
+        $this->assertNull($user->creditCard);
+    }
+
+    public function testMissingAssociationKeyLeftUntouched(): void
+    {
+        $user = new DummyUser();
+        $card = new DummyCreditCard();
+        $user->creditCard = $card;
+
+        $this->mapper->mapEntity($user, [], ['creditCard']);
+
+        $this->assertSame($card, $user->creditCard);
     }
 }
